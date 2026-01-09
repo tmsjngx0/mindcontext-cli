@@ -1,11 +1,14 @@
-import { basename, resolve } from 'path';
+import { basename, resolve, join } from 'path';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { isInitialized, readConfig, writeConfig, ensureProjectDir } from '../lib/config.js';
 import { hasOpenSpec } from '../parsers/openspec.js';
+import { COMMAND_TEMPLATES, HOOK_TEMPLATES } from '../lib/templates.js';
 
 export interface ConnectOptions {
   category?: string;
   name?: string;
   quiet?: boolean;
+  withHooks?: boolean;
 }
 
 /**
@@ -52,6 +55,39 @@ export async function connect(options: ConnectOptions = {}): Promise<void> {
 
   // Create project directory in repo
   ensureProjectDir(projectName);
+
+  // Generate .claude/commands/mc/ templates
+  const claudeDir = join(projectPath, '.claude');
+  const commandsDir = join(claudeDir, 'commands', 'mc');
+
+  if (!existsSync(commandsDir)) {
+    mkdirSync(commandsDir, { recursive: true });
+
+    // Write command templates
+    for (const [filename, content] of Object.entries(COMMAND_TEMPLATES)) {
+      writeFileSync(join(commandsDir, filename), content);
+    }
+
+    if (!options.quiet) {
+      console.log(`✓ Created .claude/commands/mc/`);
+    }
+  }
+
+  // Optionally generate hooks
+  if (options.withHooks) {
+    const hooksDir = join(claudeDir, 'hooks');
+    if (!existsSync(hooksDir)) {
+      mkdirSync(hooksDir, { recursive: true });
+
+      for (const [filename, content] of Object.entries(HOOK_TEMPLATES)) {
+        writeFileSync(join(hooksDir, filename), content);
+      }
+
+      if (!options.quiet) {
+        console.log(`✓ Created .claude/hooks/`);
+      }
+    }
+  }
 
   if (!options.quiet) {
     console.log(`✓ Connected "${projectName}"`);

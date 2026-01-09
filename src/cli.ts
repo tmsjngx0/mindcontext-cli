@@ -36,6 +36,7 @@ async function main() {
           category: flags.category as string | undefined,
           name: positional[0],
           quiet: !!flags.quiet || !!flags.q,
+          withHooks: !!flags['with-hooks'],
         });
         break;
 
@@ -109,6 +110,7 @@ OPTIONS:
   --json            Output as JSON (context command)
   --web             Open web dashboard (progress command)
   --category        Set project category (connect command)
+  --with-hooks      Generate session-end hook (connect command)
   --dry-run         Show what would be done (sync command)
 
 EXAMPLES:

@@ -4,6 +4,7 @@ import { sync } from './commands/sync.js';
 import { pull } from './commands/pull.js';
 import { context } from './commands/context.js';
 import { progress } from './commands/progress.js';
+import { changelog } from './commands/changelog.js';
 
 const args = process.argv.slice(2);
 const command = args[0];
@@ -65,6 +66,14 @@ async function main() {
         });
         break;
 
+      case 'changelog':
+        await changelog({
+          days: flags.days ? parseInt(flags.days as string, 10) : undefined,
+          format: flags.format as 'md' | 'json' | undefined,
+          quiet: !!flags.quiet || !!flags.q,
+        });
+        break;
+
       case 'help':
       case '--help':
       case '-h':
@@ -103,6 +112,7 @@ COMMANDS:
   pull              Pull latest updates from remote
   context           Output current context (for integration)
   progress          Show progress (or --web to open dashboard)
+  changelog         Generate changelog from updates
   help              Show this help message
 
 OPTIONS:
@@ -112,6 +122,8 @@ OPTIONS:
   --category        Set project category (connect command)
   --with-hooks      Generate session-end hook (connect command)
   --dry-run         Show what would be done (sync command)
+  --days=N          Include last N days (changelog, default: 7)
+  --format=md|json  Output format (changelog, default: md)
 
 EXAMPLES:
   # First-time setup

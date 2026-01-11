@@ -172,3 +172,22 @@ export function getCurrentBranch(): string {
     return 'main';
   }
 }
+
+/**
+ * Get recent commits from a project directory.
+ * Returns commit messages (not from mindcontext repo, but from the user's project).
+ */
+export function getRecentCommits(projectPath: string, limit = 5): string[] {
+  try {
+    const output = execSync(
+      `git log --oneline -${limit} --format="%s"`,
+      { ...execOptions, cwd: projectPath }
+    );
+    return output
+      .trim()
+      .split('\n')
+      .filter(line => line.length > 0);
+  } catch {
+    return [];
+  }
+}

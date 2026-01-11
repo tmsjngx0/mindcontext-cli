@@ -1,6 +1,6 @@
 import { basename, resolve } from 'path';
 import { isInitialized, readConfig } from '../lib/config.js';
-import { sync as gitSync } from '../lib/git-ops.js';
+import { sync as gitSync, getRecentCommits } from '../lib/git-ops.js';
 import { createUpdateFile, ContextData } from '../lib/update-file.js';
 import { getOpenSpecProgress } from '../parsers/openspec.js';
 
@@ -65,16 +65,19 @@ export async function sync(options: SyncOptions = {}): Promise<void> {
     }
   }
 
+  // Get recent commits from project
+  const recentCommits = getRecentCommits(projectPath, 5);
+
   if (options.dryRun) {
     if (!options.quiet) {
       console.log('\n[Dry run] Would create update file:');
-      console.log(JSON.stringify({ progress, context }, null, 2));
+      console.log(JSON.stringify({ progress, context, recent_commits: recentCommits }, null, 2));
     }
     return;
   }
 
   // Create update file
-  const filepath = createUpdateFile(projectName, progress, context);
+  const filepath = createUpdateFile(projectName, progress, context, recentCommits);
 
   if (!options.quiet) {
     console.log(`  Created: ${filepath}`);

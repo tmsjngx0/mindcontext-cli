@@ -25,6 +25,7 @@ export interface UpdateFile {
   project: string;
   progress: ProgressData;
   context: ContextData;
+  recent_commits?: string[];
 }
 
 /**
@@ -33,7 +34,8 @@ export interface UpdateFile {
 export function createUpdateFile(
   projectName: string,
   progress: ProgressData,
-  context: ContextData
+  context: ContextData,
+  recentCommits?: string[]
 ): string {
   const { name, id } = getMachineId();
   const filename = generateUpdateFilename();
@@ -47,6 +49,7 @@ export function createUpdateFile(
     project: projectName,
     progress,
     context,
+    recent_commits: recentCommits,
   };
 
   ensureProjectDir(projectName);

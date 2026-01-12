@@ -1,7 +1,10 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
-import { generateUpdateFilename, getMachineId } from './machine-id.js';
+import { generateUpdateFilename as genFilename, getMachineId } from './machine-id.js';
 import { getProjectDir, ensureProjectDir } from './config.js';
+
+// Re-export for use by other modules
+export { genFilename as generateUpdateFilename };
 
 export interface ProgressData {
   source: 'openspec' | 'manual';
@@ -38,7 +41,7 @@ export function createUpdateFile(
   recentCommits?: string[]
 ): string {
   const { name, id } = getMachineId();
-  const filename = generateUpdateFilename();
+  const filename = genFilename();
   const filepath = join(getProjectDir(projectName), filename);
 
   const update: UpdateFile = {

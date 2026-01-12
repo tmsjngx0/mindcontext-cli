@@ -7,6 +7,7 @@ import { progress } from './commands/progress.js';
 import { config } from './commands/config.js';
 import { cleanup } from './commands/cleanup.js';
 import { reset } from './commands/reset.js';
+import { migrate } from './commands/migrate.js';
 
 const args = process.argv.slice(2);
 const command = args[0];
@@ -94,6 +95,17 @@ async function main() {
         });
         break;
 
+      case 'migrate':
+        await migrate({
+          projectPath: process.cwd(),
+          dryRun: !!flags['dry-run'],
+          quiet: !!flags.quiet || !!flags.q,
+          skipProjectDir: !!flags['skip-project'],
+          skipFocusJson: !!flags['skip-focus'],
+          autoConfirm: !!flags.yes || !!flags.y,
+        });
+        break;
+
       case 'help':
       case '--help':
       case '-h':
@@ -135,6 +147,7 @@ COMMANDS:
   config            View or update configuration
   cleanup           Remove old update files
   reset             Remove ~/.mindcontext/ and start fresh
+  migrate           Migrate from .project/ and focus.json
   help              Show this help message
 
 OPTIONS:
@@ -149,6 +162,9 @@ OPTIONS:
   --get <key>       Get specific config value (config command)
   --older-than <d>  Days threshold for cleanup (default: 30)
   --force           Confirm destructive action (reset command)
+  --yes, -y         Auto-confirm prompts (migrate command)
+  --skip-project    Skip .project/ migration
+  --skip-focus      Skip focus.json migration
 
 EXAMPLES:
   # First-time setup

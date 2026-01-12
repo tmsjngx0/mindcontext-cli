@@ -19,8 +19,23 @@ const positional: string[] = [];
 for (let i = 1; i < args.length; i++) {
   const arg = args[i];
   if (arg.startsWith('--')) {
-    const [key, value] = arg.slice(2).split('=');
-    flags[key] = value ?? true;
+    const eqIndex = arg.indexOf('=');
+    if (eqIndex > -1) {
+      // --key=value format
+      const key = arg.slice(2, eqIndex);
+      const value = arg.slice(eqIndex + 1);
+      flags[key] = value;
+    } else {
+      // --key value or --flag format
+      const key = arg.slice(2);
+      const nextArg = args[i + 1];
+      if (nextArg && !nextArg.startsWith('-')) {
+        flags[key] = nextArg;
+        i++; // Skip next arg since we consumed it
+      } else {
+        flags[key] = true;
+      }
+    }
   } else if (arg.startsWith('-')) {
     flags[arg.slice(1)] = true;
   } else {
@@ -48,6 +63,8 @@ async function main() {
         await sync({
           quiet: !!flags.quiet || !!flags.q,
           dryRun: !!flags['dry-run'],
+          notes: flags.notes ? String(flags.notes).split('\n').filter(Boolean) : undefined,
+          next: flags.next ? String(flags.next).split('\n').filter(Boolean) : undefined,
         });
         break;
 

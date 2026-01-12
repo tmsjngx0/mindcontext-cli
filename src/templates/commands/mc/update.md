@@ -1,8 +1,8 @@
 ---
-description: Sync progress update with session context
+description: Save session context and sync progress
 ---
 
-# Sync Progress
+# Update Context
 
 Sync your progress to the dashboard with auto-generated session context.
 

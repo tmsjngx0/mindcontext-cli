@@ -125,7 +125,8 @@ status: in_progress
       // Templates should have been created by connect
       const claudeDir = join(TEST_PROJECT, '.claude', 'commands', 'mc');
 
-      expect(existsSync(join(claudeDir, 'sync.md'))).toBe(true);
+      expect(existsSync(join(claudeDir, 'prime.md'))).toBe(true);
+      expect(existsSync(join(claudeDir, 'update.md'))).toBe(true);
       expect(existsSync(join(claudeDir, 'progress.md'))).toBe(true);
       expect(existsSync(join(claudeDir, 'context.md'))).toBe(true);
     });

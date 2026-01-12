@@ -4,20 +4,99 @@
  */
 
 export const COMMAND_TEMPLATES = {
-  'sync.md': `---
-description: Sync progress to dashboard
+  'prime.md': `---
+description: Load context and show what to work on
 ---
 
-Run \`mc sync\` to create a progress update and push to your dashboard.
+# Prime Context
 
-This will:
-1. Read current OpenSpec progress (if present)
-2. Create a timestamped update file
-3. Commit and push to your dashboard repo
+Load project context at the start of your session.
 
-Options:
-- \`--quiet\` - Suppress output
-- \`--dry-run\` - Show what would be done without making changes
+## Step 1: Get Current Context
+
+\`\`\`bash
+mc context --json
+\`\`\`
+
+## Step 2: Load Last Session Notes
+
+From the context output, identify:
+- **Last session summary** - What was accomplished
+- **Next tasks** - What was planned for this session
+- **Current change** - The OpenSpec change being worked on
+- **Progress** - Tasks completed vs total
+
+## Step 3: Show Context Summary
+
+Display to the user:
+
+\`\`\`
+SESSION CONTEXT LOADED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Project: [project name]
+Change: [current openspec change]
+Progress: [tasks_done]/[tasks_total] ([percentage]%)
+
+Last Session:
+- [notes from last update]
+
+Planned for This Session:
+- [next tasks from last update]
+\`\`\`
+
+## Step 4: Suggest Next Action
+
+Based on context, suggest what to work on next.
+`,
+
+  'update.md': `---
+description: Save session context and sync progress
+---
+
+# Update Context
+
+Save your session progress with auto-generated context.
+
+## Step 1: Generate Session Summary
+
+From your conversation context, summarize what was accomplished:
+- Recent code changes and commits
+- Tasks completed
+- Features implemented or bugs fixed
+
+Create 3-5 concise bullet points.
+
+## Step 2: Generate Next Tasks
+
+From OpenSpec and conversation context, identify what should be done next:
+- Remaining tasks from current OpenSpec change
+- Blockers or pending items mentioned
+
+Create 2-4 actionable next task items.
+
+## Step 3: Run mc sync
+
+\`\`\`bash
+mc sync --notes "First accomplishment
+Second accomplishment" --next "Next task 1
+Next task 2"
+\`\`\`
+
+Use multiline strings - each line becomes one item.
+
+## Step 4: Show Confirmation
+
+\`\`\`
+PROGRESS SYNCED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Session Summary:
+- [generated notes]
+
+Next Session:
+- [generated next tasks]
+\`\`\`
 `,
 
   'progress.md': `---

@@ -4,6 +4,9 @@ import { sync } from './commands/sync.js';
 import { pull } from './commands/pull.js';
 import { context } from './commands/context.js';
 import { progress } from './commands/progress.js';
+import { config } from './commands/config.js';
+import { cleanup } from './commands/cleanup.js';
+import { reset } from './commands/reset.js';
 
 const args = process.argv.slice(2);
 const command = args[0];
@@ -65,6 +68,32 @@ async function main() {
         });
         break;
 
+      case 'config':
+        await config({
+          show: !flags['dashboard-repo'] && !flags['dashboard-url'] && !flags.get,
+          get: flags.get as string | undefined,
+          dashboardRepo: flags['dashboard-repo'] as string | undefined,
+          dashboardUrl: flags['dashboard-url'] as string | undefined,
+          quiet: !!flags.quiet || !!flags.q,
+        });
+        break;
+
+      case 'cleanup':
+        await cleanup({
+          olderThan: flags['older-than'] ? parseInt(flags['older-than'] as string, 10) : undefined,
+          dryRun: !!flags['dry-run'],
+          quiet: !!flags.quiet || !!flags.q,
+        });
+        break;
+
+      case 'reset':
+        await reset({
+          force: !!flags.force,
+          dryRun: !!flags['dry-run'],
+          quiet: !!flags.quiet || !!flags.q,
+        });
+        break;
+
       case 'help':
       case '--help':
       case '-h':
@@ -103,6 +132,9 @@ COMMANDS:
   pull              Pull latest updates from remote
   context           Output current context (for integration)
   progress          Show progress (or --web to open dashboard)
+  config            View or update configuration
+  cleanup           Remove old update files
+  reset             Remove ~/.mindcontext/ and start fresh
   help              Show this help message
 
 OPTIONS:
@@ -112,6 +144,11 @@ OPTIONS:
   --category        Set project category (connect command)
   --with-hooks      Generate session-end hook (connect command)
   --dry-run         Show what would be done (sync command)
+  --dashboard-repo  Set dashboard git repository (config command)
+  --dashboard-url   Set dashboard web URL (config command)
+  --get <key>       Get specific config value (config command)
+  --older-than <d>  Days threshold for cleanup (default: 30)
+  --force           Confirm destructive action (reset command)
 
 EXAMPLES:
   # First-time setup

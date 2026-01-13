@@ -1,7 +1,15 @@
 {
-  "name": "mindcontext",
+  "name": "mindcontext-cli",
   "version": "0.1.0",
   "description": "Git-based project progress tracker CLI for Claude Code",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tmsjngx0/mindcontext-cli.git"
+  },
+  "homepage": "https://github.com/tmsjngx0/mindcontext-cli",
+  "bugs": {
+    "url": "https://github.com/tmsjngx0/mindcontext-cli/issues"
+  },
   "type": "module",
   "bin": {
     "mc": "./dist/cli.js"
@@ -31,7 +39,7 @@
     "openspec",
     "cli"
   ],
-  "author": "",
+  "author": "MindContext <hello@mindcontext.io>",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.0.0",

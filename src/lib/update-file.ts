@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { generateUpdateFilename as genFilename, getMachineId } from './machine-id.js';
-import { getProjectDir, ensureProjectDir } from './config.js';
+import { getProjectDir, ensureProjectDir, getRepoDir } from './config.js';
 
 // Re-export for use by other modules
 export { genFilename as generateUpdateFilename };
@@ -58,7 +58,49 @@ export function createUpdateFile(
   ensureProjectDir(projectName);
   writeFileSync(filepath, JSON.stringify(update, null, 2));
 
+  // Update manifest for web dashboard
+  updateManifest(projectName);
+
   return filepath;
+}
+
+/**
+ * Update manifest.json listing all update files for a project.
+ * This is needed for the web dashboard to discover files.
+ */
+export function updateManifest(projectName: string): void {
+  const dir = getProjectDir(projectName);
+  if (!existsSync(dir)) {
+    return;
+  }
+
+  const files = readdirSync(dir)
+    .filter(f => f.endsWith('.json') && f !== 'manifest.json')
+    .sort();
+
+  const manifest = { files };
+  writeFileSync(join(dir, 'manifest.json'), JSON.stringify(manifest));
+
+  // Also update root projects manifest
+  updateRootManifest();
+}
+
+/**
+ * Update root projects/manifest.json listing all projects.
+ */
+export function updateRootManifest(): void {
+  const projectsDir = join(getRepoDir(), 'projects');
+  if (!existsSync(projectsDir)) {
+    return;
+  }
+
+  const projects = readdirSync(projectsDir, { withFileTypes: true })
+    .filter(d => d.isDirectory())
+    .map(d => d.name)
+    .sort();
+
+  const manifest = { projects };
+  writeFileSync(join(projectsDir, 'manifest.json'), JSON.stringify(manifest));
 }
 
 /**

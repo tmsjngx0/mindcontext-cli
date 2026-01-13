@@ -1,6 +1,6 @@
 {
   "name": "mindcontext-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Git-based project progress tracker CLI for Claude Code",
   "repository": {
     "type": "git",

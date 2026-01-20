@@ -15,7 +15,7 @@ Load project context at the start of your session.
 ## Step 1: Get Current Context
 
 \`\`\`bash
-mc context --json
+mctx context --json
 \`\`\`
 
 ## Step 2: Load Last Session Notes
@@ -75,10 +75,10 @@ From OpenSpec and conversation context, identify what should be done next:
 
 Create 2-4 actionable next task items.
 
-## Step 3: Run mc sync
+## Step 3: Run mctx sync
 
 \`\`\`bash
-mc sync --notes "First accomplishment
+mctx sync --notes "First accomplishment
 Second accomplishment" --next "Next task 1
 Next task 2"
 \`\`\`
@@ -103,7 +103,7 @@ Next Session:
 description: Show progress
 ---
 
-Run \`mc progress\` to see current progress in the terminal.
+Run \`mctx progress\` to see current progress in the terminal.
 
 Options:
 - \`--web\` - Open the web dashboard in your browser
@@ -118,7 +118,7 @@ This aggregates all update files to show:
 description: Output current context
 ---
 
-Run \`mc context\` to output the current project context.
+Run \`mctx context\` to output the current project context.
 
 Options:
 - \`--json\` - Output as JSON (for integration with other tools)
@@ -136,7 +136,7 @@ export const HOOK_TEMPLATES = {
 
 module.exports = async function() {
   try {
-    execSync('mc sync --quiet', {
+    execSync('mctx sync --quiet', {
       stdio: 'inherit',
       timeout: 10000
     });

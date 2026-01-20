@@ -12,7 +12,7 @@ export async function pull(options: PullOptions = {}): Promise<void> {
   // Check if initialized
   if (!isInitialized()) {
     if (!options.quiet) {
-      console.error('MindContext is not initialized. Run "mc init" first.');
+      console.error('MindContext is not initialized. Run "mctx init" first.');
     }
     process.exit(1);
   }

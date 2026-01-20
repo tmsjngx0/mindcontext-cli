@@ -30,7 +30,7 @@ const DEFAULT_OLDER_THAN_DAYS = 30;
 export async function cleanup(options: CleanupOptions): Promise<CleanupResult> {
   // Check initialization
   if (!isInitialized()) {
-    throw new Error('Mindcontext not initialized. Run "mc init" first.');
+    throw new Error('Mindcontext not initialized. Run "mctx init" first.');
   }
 
   const config = readConfig();

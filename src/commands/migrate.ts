@@ -118,7 +118,7 @@ export function convertFocusToUpdate(
 export async function migrate(options: MigrateOptions): Promise<MigrateResult> {
   // Check initialization
   if (!isInitialized()) {
-    throw new Error('Mindcontext not initialized. Run "mc init" first.');
+    throw new Error('Mindcontext not initialized. Run "mctx init" first.');
   }
 
   const config = readConfig();

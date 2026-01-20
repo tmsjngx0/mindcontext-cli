@@ -19,7 +19,7 @@ export async function sync(options: SyncOptions = {}): Promise<void> {
   // Check if initialized
   if (!isInitialized()) {
     if (!options.quiet) {
-      console.error('MindContext is not initialized. Run "mc init" first.');
+      console.error('MindContext is not initialized. Run "mctx init" first.');
     }
     process.exit(1);
   }
@@ -41,7 +41,7 @@ export async function sync(options: SyncOptions = {}): Promise<void> {
   if (!project) {
     if (!options.quiet) {
       console.error(`Project "${projectName}" is not connected.`);
-      console.error('Run "mc connect" first.');
+      console.error('Run "mctx connect" first.');
     }
     process.exit(1);
   }
@@ -92,7 +92,7 @@ export async function sync(options: SyncOptions = {}): Promise<void> {
       console.log('✓ Synced successfully');
     } else if (result.committed) {
       console.log('✓ Committed locally (push pending)');
-      console.log('  Run "mc push" when online to push changes.');
+      console.log('  Run "mctx push" when online to push changes.');
     } else {
       console.log(`  ${result.message}`);
     }

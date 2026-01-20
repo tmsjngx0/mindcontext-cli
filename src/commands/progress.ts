@@ -16,7 +16,7 @@ export async function progress(options: ProgressOptions = {}): Promise<void> {
   // Check if initialized
   if (!isInitialized()) {
     if (!options.quiet) {
-      console.error('MindContext is not initialized. Run "mc init" first.');
+      console.error('MindContext is not initialized. Run "mctx init" first.');
     }
     process.exit(1);
   }
@@ -89,13 +89,13 @@ export async function progress(options: ProgressOptions = {}): Promise<void> {
     if (Object.keys(config.projects).length === 0) {
       console.log('  (No projects connected)');
       console.log('');
-      console.log('Run "mc connect" in a project directory to connect it.');
+      console.log('Run "mctx connect" in a project directory to connect it.');
     }
 
     if (config.dashboard_url) {
       console.log('');
       console.log(`Dashboard: ${config.dashboard_url}`);
-      console.log('Run "mc progress --web" to open in browser.');
+      console.log('Run "mctx progress --web" to open in browser.');
     }
     return;
   }

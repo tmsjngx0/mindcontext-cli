@@ -10,7 +10,7 @@ import { execSync } from 'child_process';
  * These tests validate the complete workflow:
  * init → connect → sync → progress → context → cleanup → reset
  *
- * Validates Phase 1 checkpoint: "mc sync creates update file in ~/.mindcontext/repo/"
+ * Validates Phase 1 checkpoint: "mctx sync creates update file in ~/.mindcontext/repo/"
  */
 
 const TEST_HOME = join(tmpdir(), 'mc-e2e-test-' + Date.now());
@@ -18,7 +18,7 @@ const MINDCONTEXT_DIR = join(TEST_HOME, '.mindcontext');
 const TEST_PROJECT = join(TEST_HOME, 'test-project');
 const DASHBOARD_REPO = join(TEST_HOME, 'dashboard-repo');
 
-// Helper to run mc commands with test HOME
+// Helper to run mctx commands with test HOME
 function mc(args: string, options: { cwd?: string } = {}): string {
   const cliPath = join(__dirname, '../../dist/cli.js');
   const env = { ...process.env, HOME: TEST_HOME };

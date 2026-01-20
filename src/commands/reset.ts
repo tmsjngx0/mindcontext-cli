@@ -61,7 +61,7 @@ export async function reset(options: ResetOptions): Promise<ResetResult> {
     rmSync(mindcontextDir, { recursive: true, force: true });
     if (!options.quiet) {
       console.log(`✓ Removed ${mindcontextDir}`);
-      console.log('\nRun "mc init" to set up mindcontext again.');
+      console.log('\nRun "mctx init" to set up mindcontext again.');
     }
     return { success: true, removed: true };
   } catch (error) {

@@ -17,7 +17,7 @@ export interface ConnectOptions {
 export async function connect(options: ConnectOptions = {}): Promise<void> {
   // Check if initialized
   if (!isInitialized()) {
-    console.error('MindContext is not initialized. Run "mc init" first.');
+    console.error('MindContext is not initialized. Run "mctx init" first.');
     process.exit(1);
   }
 
@@ -56,9 +56,9 @@ export async function connect(options: ConnectOptions = {}): Promise<void> {
   // Create project directory in repo
   ensureProjectDir(projectName);
 
-  // Generate .claude/commands/mc/ templates
+  // Generate .claude/commands/mctx/ templates
   const claudeDir = join(projectPath, '.claude');
-  const commandsDir = join(claudeDir, 'commands', 'mc');
+  const commandsDir = join(claudeDir, 'commands', 'mctx');
 
   if (!existsSync(commandsDir)) {
     mkdirSync(commandsDir, { recursive: true });
@@ -69,7 +69,7 @@ export async function connect(options: ConnectOptions = {}): Promise<void> {
     }
 
     if (!options.quiet) {
-      console.log(`✓ Created .claude/commands/mc/`);
+      console.log(`✓ Created .claude/commands/mctx/`);
     }
   }
 
@@ -95,6 +95,6 @@ export async function connect(options: ConnectOptions = {}): Promise<void> {
     console.log(`  Category: ${options.category || 'default'}`);
     console.log(`  OpenSpec: ${openspec ? 'Detected' : 'Not found'}`);
     console.log('');
-    console.log('Next: Run "mc sync" to create your first update.');
+    console.log('Next: Run "mctx sync" to create your first update.');
   }
 }

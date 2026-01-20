@@ -133,12 +133,12 @@ async function main() {
       case 'version':
       case '--version':
       case '-v':
-        console.log('mindcontext v0.1.0');
+        console.log('mctx v0.2.0');
         break;
 
       default:
         console.error(`Unknown command: ${command}`);
-        console.error('Run "mc help" for available commands.');
+        console.error('Run "mctx help" for available commands.');
         process.exit(1);
     }
   } catch (error) {
@@ -149,10 +149,10 @@ async function main() {
 
 function printHelp() {
   console.log(`
-mindcontext - Git-based project progress tracker
+mctx - Git-based project progress tracker
 
 USAGE:
-  mc <command> [options]
+  mctx <command> [options]
 
 COMMANDS:
   init              Initialize mindcontext (~/.mindcontext/)
@@ -185,17 +185,17 @@ OPTIONS:
 
 EXAMPLES:
   # First-time setup
-  mc init
+  mctx init
 
   # Connect a project
   cd my-project
-  mc connect --category work
+  mctx connect --category work
 
   # Daily usage
-  mc sync              # Push progress update
-  mc progress          # View progress in terminal
-  mc progress --web    # Open dashboard in browser
-  mc pull              # Get team updates
+  mctx sync              # Push progress update
+  mctx progress          # View progress in terminal
+  mctx progress --web    # Open dashboard in browser
+  mctx pull              # Get team updates
 
 DOCUMENTATION:
   https://github.com/tmsjngx0/mindcontext

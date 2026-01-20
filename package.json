@@ -1,7 +1,7 @@
 {
-  "name": "mindcontext-cli",
-  "version": "0.1.1",
-  "description": "Git-based project progress tracker CLI for Claude Code",
+  "name": "@mindcontext/cli",
+  "version": "0.2.0",
+  "description": "Git-based project progress tracker CLI - works with Claude Code and other AI coding agents",
   "repository": {
     "type": "git",
     "url": "https://github.com/tmsjngx0/mindcontext-cli.git"
@@ -12,7 +12,7 @@
   },
   "type": "module",
   "bin": {
-    "mc": "./dist/cli.js"
+    "mctx": "./dist/cli.js"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -34,10 +34,13 @@
     "prepublishOnly": "npm run build"
   },
   "keywords": [
+    "mctx",
+    "mindcontext",
     "claude-code",
     "progress-tracker",
     "openspec",
-    "cli"
+    "cli",
+    "ai-coding"
   ],
   "author": "MindContext <hello@mindcontext.io>",
   "license": "MIT",

@@ -25,7 +25,7 @@ export interface ConfigOptions {
 export async function config(options: ConfigOptions): Promise<unknown> {
   // Check initialization
   if (!isInitialized()) {
-    throw new Error('Mindcontext not initialized. Run "mc init" first.');
+    throw new Error('Mindcontext not initialized. Run "mctx init" first.');
   }
 
   const currentConfig = readConfig();

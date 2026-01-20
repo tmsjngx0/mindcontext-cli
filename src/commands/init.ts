@@ -43,7 +43,7 @@ export async function init(options: { quiet?: boolean } = {}): Promise<void> {
       console.log(`  Dashboard: ${config?.dashboard_url || 'Not configured'}`);
       console.log(`  Projects: ${Object.keys(config?.projects || {}).length}`);
       console.log('');
-      console.log('Run "mc reset" to start fresh.');
+      console.log('Run "mctx reset" to start fresh.');
     }
     return;
   }
